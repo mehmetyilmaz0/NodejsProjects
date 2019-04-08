@@ -1,0 +1,24 @@
+{
+  "name": "apiapp",
+  "version": "1.0.0",
+  "description": "api example",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mehmetpdf/apiApp.git"
+  },
+  "author": "mehmet.yilmaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mehmetpdf/apiApp/issues"
+  },
+  "homepage": "https://github.com/mehmetpdf/apiApp#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
+}

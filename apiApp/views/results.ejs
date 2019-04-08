@@ -1,0 +1,14 @@
+<h1>Filmler Asagidaki Gibidir</h1>
+
+<ul>
+    <% data["results"].forEach(function (film){%>
+    <li>
+        <strong>
+            <%= film["title"]%>
+        </strong>
+            <%= film["vote_average"]%>
+    </li>
+    <%});%>
+</ul>
+
+<a href="/">Tekrar Arama Yapin</a>
