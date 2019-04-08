@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <title>Ajax İntro</title>
+        <link 
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+            rel="stylesheet" 
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+            crossorigin="anonymous">
+        <style>
+            #buttons, #xhr, #fetch, #jquery, #axios{
+                margin: 20px 20px;
+                border-radius: 30px;
+                padding: 30px;
+            }
+            p{
+                font-size: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="buttons">
+            <button id="xhr" type="button" class="btn btn-warning">xhr</button>
+            <button id="fetch" type="button" class="btn btn-success">fetch</button>
+            <button id="jquery" type="button" class="btn btn-primary">jquery</button>
+            <button id="axios" type="button" class="btn btn-danger">axios</button>
+            <p> <strong> Type : </strong> <p id="type"></p> </p>
+            <p> <strong> Text : </strong> <p id="text"></p> </p>
+        </div>
+    </body>
+    <script 
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+        crossorigin="anonymous">
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        var url = "https://api.github.com/users/mehmetpdf";
+        var type = document.querySelector("#type");
+        var text = document.querySelector("#text");
+
+        // XHR Request - En Uzun Syntax
+        var xhrBtn = document.querySelector("#xhr");
+        xhrBtn.addEventListener("click", function(){
+            var XHR = new XMLHttpRequest();
+
+            XHR.onreadystatechange = function(){
+                if(XHR.readyState == 4 && XHR.status == 200){ // DONE = 4
+                    type.innerText = typeof(XHR.responseText);
+                    
+                    var jsonFormatData = JSON.parse(XHR.responseText);
+                    text.innerText = jsonFormatData["login"];
+                }
+            }
+
+            XHR.open("GET", url);
+            XHR.send();
+
+        });
+
+        // FETCH -- IE 'de calismayabilir..
+        var fetchBtn = document.querySelector("#fetch");
+        fetchBtn.addEventListener("click", function(){
+            fetch(url)
+
+            .then(function(req){
+                req.json().then(function(data){
+                    type.innerText = typeof(data);   
+                    text.innerText = data.login;
+                });
+            })
+            .catch(function(){
+                alert("Error");
+            })
+        });
+
+        //JQUERY - Temiz ve Kısa Bir Sytax ama Sadece Ajax İçin Kullanılır Mı(!)
+        $("#jquery").click(function() {
+            $.getJSON(url)
+            .done(function(data){
+                $("#type").text(typeof(data));   
+                $("#text").text(data.login);
+            })
+            .fail(function(){
+                alert("ERROR");
+            })
+        });
+
+        //AXIOS - Temiz ve Kısa Bir Sytax ve Sadece Ajax İçin Yapılmış Bir Yöntem...
+        var axiosBtn = document.querySelector("#axios");
+        axiosBtn.addEventListener("click", function(){
+            axios.get(url)
+            .then(function(res){
+                type.innerText = typeof(res.data);   
+                text.innerText = res.data.login;
+            })
+            .catch(function(){
+                alert("ERROR");
+            })
+        });
+
+    </script>
+</html>
