@@ -10,7 +10,7 @@ var userSchema = new mongoose.Schema({
 
 var User = mongoose.model("User", userSchema);
 
-// CREATE 1
+// CREATE 1 (INSERT)
 /* 
 var degisken = new User({
     name: "Mehmet",
@@ -29,7 +29,7 @@ degisken.save(function(err, userDB){
 });
  */
 
- // CREATE 2
+ // CREATE 2 (INSERT)
  User.create({
      name:"Osman",
      lastName:"Yilmaz",
@@ -44,6 +44,7 @@ degisken.save(function(err, userDB){
     }
  });
 
+ // FIND (SELECT)
  User.find({}, function(err, users){
      if(err){
         console.log("Birseyler Yanlis Gitti");
