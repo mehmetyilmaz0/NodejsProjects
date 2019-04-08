@@ -1,0 +1,10 @@
+<h1>Ziyaret Ettigim Sehirler</h1>
+
+<% sehirler.forEach(function (sehir){ %>
+    <li><%= sehir %></li>
+<%});%>
+
+<form action="/sehirEkle" method="POST">
+    <input type="text" name="yeniSehir" placeholder="sehir">
+    <button>Yeni Sehir</button>
+</form>
