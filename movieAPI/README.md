@@ -30,6 +30,6 @@
 
 
 # Demo
-[Live demo on Heroku](https://node-egitimi-movie-api.herokuapp.com/)
+[Live demo on Heroku]()
 
 enjoy!
