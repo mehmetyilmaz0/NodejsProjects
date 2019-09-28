@@ -29,7 +29,13 @@ router.get('/:movie_id', (req, res, next) => {
 });
 
 router.put('/:movie_id', (req, res, next) => {
-    const promise = Movie.findByIdAndUpdate(req.params.movie_id, req.body);
+    const promise = Movie.findByIdAndUpdate(
+        req.params.movie_id,
+        req.body,
+        {
+            new: true
+        }
+    );
 
     promise.then((movie) => {
 
