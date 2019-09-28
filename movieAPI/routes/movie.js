@@ -48,6 +48,21 @@ router.put('/:movie_id', (req, res, next) => {
     });
 });
 
+router.delete('/:movie_id', (req, res, next) => {
+    const promise = Movie.findByIdAndRemove(req.params.movie_id);
+
+    promise.then((movie) => {
+
+        if(!movie)
+            next({message: 'The film was not found!!', code: 99});
+        else
+            res.json(req.params.movie_id + ' -> This film was delete!!')
+
+    }).catch((err) => {
+        res.json(err);
+    });
+});
+
 
 router.post('/', (req, res, next) => {
   const {title, imdbScore, category, country, year} = req.body;
