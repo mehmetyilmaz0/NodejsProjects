@@ -5,7 +5,54 @@ const router = express.Router();
 const Director = require('../models/Director');
 
 router.get('/', (req, res, next) => {
-  res.json({ title: 'Express' });
+  const promise = Director.aggregate([
+      {
+        $lookup: {
+          from: 'movies',
+          localField: '_id',
+          foreignField: 'directorID',
+          as: 'movies'
+        }
+      },
+      {
+        $unwind: {
+          path: '$movies',
+          preserveNullAndEmptyArrays: true
+        }
+      },
+      {
+        $group: {
+          _id: {
+            _id: '$_id',
+            name: '$name',
+            surname: '$surname',
+            bio: '$bio'
+          },
+          movies: {
+            $push: '$movies'
+          }
+        }
+      },
+      {
+        $project: {
+          _id: '$_id._id',
+          name: '$_id.name',
+          surname: '$_id.surname',
+          bio: '$_id.bio',
+          movies: '$movies'
+        }
+      }
+  ]);
+
+  promise.then((director) => {
+    if(!director)
+      next({message: 'The film was not found!!', code: 99});
+
+    res.json(director);
+  }).catch((err) => {
+    res.json(err);
+  });
+
 });
 
 router.post('/', (req, res, next) => {
